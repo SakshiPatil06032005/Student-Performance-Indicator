@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: Current File (Conda env)",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "python": "D:\\Data Science Practice_Krish Naik\\Student Performance Indicator Project\\venv\\python.exe"
+    }
+  ]
+}
