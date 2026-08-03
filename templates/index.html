@@ -70,9 +70,14 @@
             bottom: -100px;
         }
 
-        .hero-card {
+        .page-inner {
             width: min(920px, 100%);
-            padding: 42px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-card {
+            padding: 46px;
             border-radius: 30px;
             border: 1px solid var(--card-border);
             background: var(--card);
@@ -80,18 +85,17 @@
             backdrop-filter: blur(18px);
             -webkit-backdrop-filter: blur(18px);
             position: relative;
-            z-index: 1;
             overflow: hidden;
         }
 
         .hero-card::before {
             content: "";
             position: absolute;
-            inset: auto -50px -70px auto;
-            width: 240px;
-            height: 240px;
+            inset: auto -60px -60px auto;
+            width: 220px;
+            height: 220px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(94, 234, 212, 0.16), transparent 70%);
+            background: radial-gradient(circle, rgba(94, 234, 212, 0.14), transparent 70%);
             pointer-events: none;
         }
 
@@ -120,10 +124,10 @@
 
         h1 {
             margin: 18px 0 14px;
-            font-size: clamp(2.8rem, 6vw, 5rem);
-            line-height: 0.96;
-            letter-spacing: -0.06em;
-            max-width: 10ch;
+            font-size: clamp(2.4rem, 5vw, 4rem);
+            line-height: 1.02;
+            letter-spacing: -0.05em;
+            max-width: 12ch;
         }
 
         p {
@@ -132,6 +136,19 @@
             color: var(--muted);
             font-size: 1.04rem;
             line-height: 1.78;
+        }
+
+        .hero-copy {
+            display: grid;
+            gap: 18px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-copy .lead {
+            max-width: 58ch;
+            font-size: 1.04rem;
+            line-height: 1.8;
         }
 
         .actions {
@@ -172,31 +189,51 @@
             filter: brightness(1.03);
         }
 
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 14px;
-            margin-top: 30px;
-        }
-
-        .info-card {
-            padding: 18px;
+        .summary-box {
+            margin-top: 4px;
+            padding: 18px 20px;
             border-radius: 20px;
-            background: rgba(15, 23, 42, 0.64);
+            background: rgba(15, 23, 42, 0.62);
             border: 1px solid rgba(148, 163, 184, 0.14);
         }
 
-        .info-card strong {
+        .summary-box strong {
             display: block;
             margin-bottom: 6px;
-            font-size: 1.02rem;
             color: #ffffff;
         }
 
-        .info-card span {
+        .summary-box span {
             color: var(--muted);
-            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .mini-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 6px;
+        }
+
+        .mini-card {
+            padding: 16px;
+            border-radius: 18px;
+            background: rgba(15, 23, 42, 0.62);
+            border: 1px solid rgba(148, 163, 184, 0.14);
+            color: #dbeafe;
             line-height: 1.55;
+        }
+
+        .mini-card strong {
+            display: block;
+            margin-bottom: 4px;
+            color: #ffffff;
+        }
+
+        .actions-wrap {
+            display: grid;
+            gap: 14px;
+            margin-top: 22px;
         }
 
         @media (max-width: 760px) {
@@ -209,42 +246,64 @@
                 max-width: none;
             }
 
-            .info-grid {
+            .mini-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .actions {
+                flex-direction: column;
             }
         }
     </style>
 </head>
 <body>
     <main class="page-shell">
-        <section class="hero-card">
-            <div class="eyebrow"><span class="eyebrow-dot"></span> Student Performance Indicator</div>
-            <h1>Insights that help you understand student performance.</h1>
-            <p>
-                Explore a clean, professional landing page for the project. It introduces the predictor with a modern
-                visual style and directs users to the score estimation form.
-            </p>
+        <div class="page-inner">
+            <section class="hero-card">
+                <div class="eyebrow"><span class="eyebrow-dot"></span> Student Performance Indicator</div>
+                <h1>Student Performance Indicator</h1>
+                <p class="lead">
+                    Predict Student Math Performance Using Machine Learning. This web application uses a trained machine learning model
+                    to predict a student's <strong>Math Score</strong> based on academic and demographic information.
+                </p>
+                <p class="lead">
+                    Enter the required details and generate an instant prediction with a clean, simple interface.
+                </p>
 
-            <div class="actions">
-                <a class="btn" href="{{ url_for('predict_datapoint') }}">Open prediction form</a>
-                <a class="btn-secondary" href="#highlights">View highlights</a>
-            </div>
+                <div class="summary-box">
+                    <strong>How it works</strong>
+                    <span>
+                        The model analyzes gender, race/ethnicity, parental education, lunch type, test preparation course,
+                        reading score, and writing score to estimate student performance.
+                    </span>
+                </div>
 
-            <div class="info-grid" id="highlights">
-                <div class="info-card">
-                    <strong>Professional layout</strong>
-                    <span>Balanced spacing, layered depth, and strong visual hierarchy.</span>
+                <div class="mini-grid">
+                    <div class="mini-card">
+                        <strong>Machine learning</strong>
+                        Trained model for score prediction.
+                    </div>
+                    <div class="mini-card">
+                        <strong>Simple interface</strong>
+                        Clean layout with one clear action.
+                    </div>
+                    <div class="mini-card">
+                        <strong>Fast prediction</strong>
+                        Get results instantly after submission.
+                    </div>
+                    <div class="mini-card">
+                        <strong>Flask app</strong>
+                        Lightweight web app structure.
+                    </div>
                 </div>
-                <div class="info-card">
-                    <strong>Responsive design</strong>
-                    <span>Readable and elegant on desktop, tablet, and mobile screens.</span>
+
+                <div class="actions-wrap">
+                    <div class="actions">
+                        <a class="btn" href="{{ url_for('predict_datapoint') }}">Get Started</a>
+                    </div>
                 </div>
-                <div class="info-card">
-                    <strong>Clear entry point</strong>
-                    <span>A direct call to action leads users into the prediction workflow.</span>
-                </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </main>
 </body>
 </html>
